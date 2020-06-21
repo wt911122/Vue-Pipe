@@ -5,7 +5,7 @@
 </template>
 
 <script>
-let flag = true;
+let flag = false;
 const logger = (...args) => {
     if(flag) console.log.call(null, ...args)
 }
