@@ -42,4 +42,4 @@ The component that will be displayed when loading
 ```
 
 
-Example: 
+Example: https://github.com/wt911122/Vue-Pipe
