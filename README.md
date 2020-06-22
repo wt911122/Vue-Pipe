@@ -1,35 +1,37 @@
 # Vue Pipe
+[English](https://github.com/wt911122/Vue-Pipe/blob/master/README-en.md)
 
-In the development, there are often scenes of interface level dependence, and the level dependence of the interface in our code is not very intuitive, and the functions called by the interface often show flat characteristics. The dependency of the interface is more reflected in the page structure. Often, the results returned by the previous layer and the interface will determine the display of the next layer of pages. ```Vue Pipe``` abstracts this interface call level and reflects it on the component.
+在开发中，经常出现接口层级依赖的场景，而我们的代码中接口的层级依赖并没有非常直观的体现，接口调用的函数往往呈现出平层的特点。接口的依赖关系更多的体现在页面结构当中，往往上一层及的接口返回的结果，将决定下一层级页面的展示。```Vue Pipe``` 将这种接口调用层级抽象出来，并反应在组件之上。
 
 ## v-pipe 
 
-The component ```v-pipe``` represents a series of dependency levels, which can contain any component
+组件```v-pipe``` 代表了一系列的依赖层级，内部可包含任意组件
 #### properties
--name: String
-Optional, represents the name of the current level
--graph: String
-Required, represents the dependency relationship, and is identified by the name of ```v-pipe``` or ```v-valve``` in the child node, for example: ```a> b> c,d, e```. ```a> b``` represents ```b```depends on ```a```, ```c,d,e``` represents a level relationship
+- name: String
+选填，代表了当前层级的名称
+- graph: String
+必填，代表了依赖关系，使用子节点中的```v-pipe```或```v-valve```的名称来标识，举例：```a > b > c,d,e```。```a > b```代表了```b```依赖```a```，```c,d,e```代表了平级关系
 
 ## v-valve
 
-The component ```v-valve``` represents a single request
+组件```v-valve``` 代表了单个请求
 #### properties
--name: String
-Required, represents the name of the current request
--request: Function<() => Promise>
-Required, represents the method body of the current request
--valve: Any
-Required, represents the target data modified after the current request is completed
+- name: String
+必填，代表了当前请求的名称
+- request: Function<() => Promise>
+必填，代表了当前请求的方法体
+- valve: Any
+必填，代表了当前请求完成后修改的目标数据
 
 #### slot
--default
-Any component under normal circumstances
--loading
-The component that will be displayed when loading
+- default
+正常情况下的任意组件
+- loading
+加载时会显示的组件
 
-## skills 
-```v-pipe``` can be nested and used to show more dependencies, such as:
+
+## 使用技巧 
+```v-pipe```可以嵌套使用，这样可以表示出更多的依赖关系，比如:
 ```javascript
 <v-pipe graph="a > b > c">
     ...
@@ -42,4 +44,4 @@ The component that will be displayed when loading
 ```
 
 
-Example: https://github.com/wt911122/Vue-Pipe
+具体的栗子请戳 https://github.com/wt911122/Vue-Pipe

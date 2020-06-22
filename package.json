@@ -1,8 +1,12 @@
 {
   "name": "vue-pipe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/wt911122/Vue-Pipe"
+  },
   "scripts": {
     "dev": "cd demo && npm run serve"
   },
