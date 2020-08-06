@@ -44,4 +44,80 @@
 ```
 
 
+## Composition API
+
+有些时候可能使用外层包裹了DIV的v-pipe和v-valve会破坏原有的组件库结构，因此在新版本中，提供了一套Composition API。
+
+示例：
+```javascript
+import { 
+    createPipe,
+    createValve,
+    registToPipe,
+    mapPipeLoading,
+} from 'vue-pipe'
+export default {
+    data(){
+        return {
+            levelA: '',
+            levelAs: [],
+            levelB: '',
+            levelBs: [],
+        }
+    },
+    setupPipe(){
+        // 管道初始化方法，需要返回一个Pipe对象
+
+        // 创建 Pipe 传入name 和依赖图
+        const pipe = createPipe({ 
+            name: 'root',
+            graph: 'levelA > levelB'
+        });
+
+        // 创建 Valve，传入name，request，和监听的方法，
+        // loadResource 是回调方法，用于触发调用请求
+        const valveA = createValve({
+            name: 'levelA',
+            request: this.loadLevelA,
+            watcher: (loadResource) => {
+                return this.$watch(() => this.levelA, () => {
+                    loadResource();
+                })
+            }
+        })
+
+        const valveB = createValve({
+            name: 'levelB',
+            request: this.loadlevelB,
+            watcher: (loadResource) => {
+                return this.$watch(() => this.levelB, () => {
+                    loadResource();
+                })
+            }
+        })
+        // 将 Valve 手动注册到 pipe 上 
+        registToPipe(pipe, valveA, valveB);
+        return pipe;
+    },
+    computed: {
+        // 两种关联loading态到computed属性的方式
+        ...mapPipeLoading({
+            levelALoading: mapping => mapping.levelA.getLoading()
+        }),
+        ...mapPipeLoading([
+            'levelB' // 默认生成 lavelBLoading 
+        ]),
+    },
+    methods: {
+        loadLevelA(){
+            ...
+        },
+        loadLevelB(){
+            ...
+        }
+    }
+}
+```
+
+
 具体的栗子请戳 https://github.com/wt911122/Vue-Pipe
