@@ -71,10 +71,10 @@ export default {
         // 创建 Pipe 传入name 和依赖图
         const pipe = createPipe({ 
             name: 'root',
-            graph: 'levelA > levelB'
+            graph: 'levelA > levelB > folder'
         });
 
-        // 创建 Valve，传入name，request，和监听的方法，
+        // 创建 Valve，传入name，request，和监听的方法，以及加载条件 condition
         // loadResource 是回调方法，用于触发调用请求
         const valveA = createValve({
             name: 'levelA',
@@ -91,6 +91,16 @@ export default {
             request: this.loadlevelB,
             watcher: (loadResource) => {
                 return this.$watch(() => this.levelB, () => {
+                    loadResource();
+                })
+            }
+        })
+        const folder = createValve({
+            name: 'folder',
+            request: this.loadFolders,
+            condition: () => this.levelA === 'b', // 请求加载的条件
+            watcher: (loadResource) => {
+                return this.$watch(() => this.folder, () => {
                     loadResource();
                 })
             }
@@ -113,6 +123,9 @@ export default {
             ...
         },
         loadLevelB(){
+            ...
+        },
+        loadFolders(){
             ...
         }
     }
