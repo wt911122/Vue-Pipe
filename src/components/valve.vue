@@ -27,7 +27,7 @@ export default {
     ],
     computed: {
         loadingState(){
-            return this._vueValve.loading.status
+            return this._vueValve && this._vueValve.loading.status
         }
     },
     created(){
