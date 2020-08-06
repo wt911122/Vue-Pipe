@@ -9,21 +9,39 @@ class Pipe {
         this.mapping = {};
         this.stopCurrent = false;
         this.currentProcess = null;
+        this.inited = false;
     }
 
+    /**
+        pipe 和 valve都可以被注册上来
+     */
     regist(valve){
         const { name } = valve
         if(!this.mapping[name]){
             this.mapping[name] = valve;
             valve.bindPipe(this);
             valve.setLoading(true)
+            if(this.inited){
+                this.loadSpecificResource(name)
+            }
         }else {
             throw `${name} is already registed!`
         }
     }
 
+    bindPipe(pipe){
+       
+    }
+
+    setLoading(){
+
+    }
+
+    wrapperRequest(){
+        this.initialize();
+    }
+
     unRegist(valve){
-        console.log(valve)
         this.mapping[valve.name] = null;
         valve.destroy();
     }
@@ -35,7 +53,10 @@ class Pipe {
     }
 
     initialize(){
-        this.loadCurrentLayerResource(this.layers[0][0])
+        this.loadCurrentLayerResource(this.layers[0][0]).finally(() => {
+            this.inited = true;
+        })
+        
     }
     /**
         请求当前整个层级  
@@ -62,7 +83,6 @@ class Pipe {
         请求后续层级    
      */
     loadRemainLayerResource(name){
-        console.log('loadRemainLayerResource', name)
         const startLayer = this.findStartLayer(name);
         if(startLayer === -1) return Promise.reject();
         const remainLayers = this.layers.slice(startLayer + 1);
@@ -189,14 +209,14 @@ export function registToPipe(pipe, ...valves) {
 export function unRegistToPipe(pipe, valve) {
     pipe.unRegist(valve)
 }
-const globalPipe = {};
-export function registPipe(pipe){
-    const name = pipe.name || 'root';
-    globalPipe[name] = pipe
-}
+// pipe 嵌套形式？
+// const globalPipe = {};
+// export function registPipe(pipe){
+//     const name = pipe.name || 'root';
+//     globalPipe[name] = pipe
+// }
 
 export function unRegistPipe(pipe){
-    console.log('unRegistPipe')
     pipe.destroy();
 } 
 

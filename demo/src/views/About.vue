@@ -27,6 +27,7 @@ export default {
                 console.log('request levelC')
                 setTimeout(() => {
                     this.levels = ['h', 'i', 'j'].map(p => `${this.level}-${p}`);
+                    console.log('levelC resolved')
                     resolve()
                 }, Math.random() * 1000 + 1000);
             });

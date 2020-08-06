@@ -10,9 +10,7 @@ export default {
                 const setupPipe = this.$options.setupPipe;
                 
                 if(setupPipe){
-                    console.log('created')
                     const pipe = this._vuepipe = setupPipe.call(this);
-                    registPipe(pipe);
                     pipe.initialize();
                 }
             },
@@ -20,7 +18,6 @@ export default {
                
                 const setupPipe = this.$options.setupPipe;
                 if(setupPipe){
-                     console.log('destroyed')
                     unRegistPipe(this._vuepipe)
                 }
             }
