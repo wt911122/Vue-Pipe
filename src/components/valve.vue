@@ -13,7 +13,7 @@ import {
     createValve,
     registToPipe,
     mapPipeLoading,
-} from 'vue-pipe'
+} from '../core/plugin'
 
 export default {
     props: {

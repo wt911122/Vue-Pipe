@@ -1,15 +1,27 @@
 {
   "name": "vue-pipe",
-  "version": "1.0.1",
+  "version": "2.0.1",
   "description": "",
-  "main": "src/core/plugin.js",
+  "main": "dist/main.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/wt911122/Vue-Pipe"
+    "type": "git",
+    "url": "https://github.com/wt911122/Vue-Pipe"
   },
   "scripts": {
     "dev": "cd demo && npm run serve"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "peerDependencies": {
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "vue-loader": "^15.9.3",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
 }
