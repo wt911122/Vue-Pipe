@@ -144,9 +144,11 @@ class Valve {
         this.watcher = watcher;
         this.condition = condition;
 
-        this.loading = Vue.observable({
-            status: false,
+        const temp = {};
+        Vue.set(temp, 'model', {
+            status: false
         })
+        this.loading = temp.model;
     }
 
     wrapperRequest(){

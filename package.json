@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "vue": "^2.6.11"
+    "vue": "^2.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
