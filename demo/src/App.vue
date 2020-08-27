@@ -22,7 +22,7 @@ export default {
         return {
             levelA: '',
             levels: [],
-            graph: 'levelA > levelB, levelC, levelD'
+            graph: 'levelA > (levelB, levelC, levelD)'
         }
     },
     methods: {

@@ -144,11 +144,14 @@ class Valve {
         this.watcher = watcher;
         this.condition = condition;
 
-        const temp = {};
-        Vue.set(temp, 'model', {
-            status: false
+        const temp = new Vue({
+            data(){
+                return {
+                    status: false
+                }
+            }
         })
-        this.loading = temp.model;
+        this.loading = temp;
     }
 
     wrapperRequest(){
@@ -183,17 +186,23 @@ class Valve {
 
     destroy(){
         this.unWatch();
+        this.loading.$destroy()
     }
 }
 
 function getLayers(graph){
-    return graph.split('>').map(s => 
-        s.trim().split(',').map(s => 
-        s.trim()));
+    return graph.split('>').map(s => {
+        let capture = s;
+        if(/\(([^)]*)\)/.test(s)){
+            capture = /\(([^)]*)\)/.exec(s)[1]
+        }
+        return capture.trim().split(',').map(s => s.trim());
+    });   
 }
 
 export function createPipe({ name, graph }) { 
     const layers = getLayers(graph);
+    console.log(layers)
     return new Pipe(name, layers)
 }
 export function createValve({ name, request, watcher, condition }) {

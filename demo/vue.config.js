@@ -6,7 +6,7 @@ module.exports = {
     configureWebpack: {
         resolve: {
             alias: {
-                'vue-pipe': path.resolve(__dirname, '../dist/main'),
+                'vue-pipe': path.resolve(__dirname, '../src/core/plugin.js'),
             }
         }
     }
